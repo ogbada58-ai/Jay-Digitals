@@ -1,4 +1,4 @@
-name: Hide sign-in button after login
+name: Store polish and account state
 
 on:
   push:
@@ -12,25 +12,56 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Add authenticated account-button behavior
+
+      - name: Apply premium design and auth behavior
         run: |
           python3 - <<'PY'
           from pathlib import Path
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
+
+          # Load the premium visual layer once.
+          if 'premium.css' not in s:
+              s = s.replace('</head>', '<link rel="stylesheet" href="premium.css">\n</head>', 1)
+
+          # Ensure the account button has a stable id.
           old = '<a class="account" href="signin.html">SIGN IN / ACCOUNT</a>'
           new = '<a class="account" id="marvy-account" href="signin.html">SIGN IN / ACCOUNT</a>'
           s = s.replace(old, new, 1)
-          marker = '\n</head>'
-          script = '''\n<style>\n#marvy-account.authenticated-hidden{display:none!important}\n</style>\n<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>\n<script>\n(async function(){\n  try{\n    const client=window.supabase.createClient('https://lspiygozawcwgjgsysld.supabase.co','sb_publishable_v-eHoJfEPdOjv-EASPiwSw_Gz7TzjNc');\n    const {data:{session}}=await client.auth.getSession();\n    const account=document.getElementById('marvy-account');\n    if(account && session) account.classList.add('authenticated-hidden');\n  }catch(e){}\n})();\n</script>\n'''
-          if 'id="marvy-account"' in s and 'authenticated-hidden' not in s:
-              s = s.replace(marker, script + marker, 1)
+
+          # Remove the older account-hiding block if it exists, then add a reliable version.
+          start = s.find('<style>\n#marvy-account.authenticated-hidden')
+          if start != -1:
+              end = s.find('</script>', start)
+              if end != -1:
+                  s = s[:start] + s[end + len('</script>'):]
+
+          block = '''<style>
+#marvy-account.authenticated-hidden{display:none!important}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async function(){
+  try{
+    const client=window.supabase.createClient('https://lspiygozawcwgjgsysld.supabase.co','sb_publishable_v-eHoJfEPdOjv-EASPiwSw_Gz7TzjNc');
+    const {data:{session}}=await client.auth.getSession();
+    const account=document.getElementById('marvy-account');
+    if(account && session) account.classList.add('authenticated-hidden');
+  }catch(e){}
+});
+</script>
+'''
+          marker = '</head>'
+          if 'document.addEventListener(\'DOMContentLoaded\'' not in s:
+              s = s.replace(marker, block + marker, 1)
+
           p.write_text(s, encoding='utf-8')
           PY
-      - name: Commit change
+
+      - name: Commit generated store update
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html
-          git diff --cached --quiet || git commit -m "Hide sign-in button for authenticated users"
+          git add index.html premium.css
+          git diff --cached --quiet || git commit -m "Upgrade MARVY SIGNATURE storefront design"
           git push
