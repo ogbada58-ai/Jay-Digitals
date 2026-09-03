@@ -1,0 +1,36 @@
+name: Hide sign-in button after login
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update-store:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add authenticated account-button behavior
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          old = '<a class="account" href="signin.html">SIGN IN / ACCOUNT</a>'
+          new = '<a class="account" id="marvy-account" href="signin.html">SIGN IN / ACCOUNT</a>'
+          s = s.replace(old, new, 1)
+          marker = '\n</head>'
+          script = '''\n<style>\n#marvy-account.authenticated-hidden{display:none!important}\n</style>\n<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>\n<script>\n(async function(){\n  try{\n    const client=window.supabase.createClient('https://lspiygozawcwgjgsysld.supabase.co','sb_publishable_v-eHoJfEPdOjv-EASPiwSw_Gz7TzjNc');\n    const {data:{session}}=await client.auth.getSession();\n    const account=document.getElementById('marvy-account');\n    if(account && session) account.classList.add('authenticated-hidden');\n  }catch(e){}\n})();\n</script>\n'''
+          if 'id="marvy-account"' in s and 'authenticated-hidden' not in s:
+              s = s.replace(marker, script + marker, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "Hide sign-in button for authenticated users"
+          git push
