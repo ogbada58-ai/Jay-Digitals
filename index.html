@@ -4,6 +4,23 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MARVY SIGNATURE — Luxury Fragrances</title>
 <meta name="description" content="Premium fragrances by MARVY SIGNATURE.">
+<style>html.auth-lock body{visibility:hidden!important}html.auth-ready body{visibility:visible!important}</style>
+<script>document.documentElement.classList.add('auth-lock');</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(async function(){
+  const SUPABASE_URL='https://lspiygozawcwgjgsysld.supabase.co';
+  const SUPABASE_KEY='sb_publishable_v-eHoJfEPdOjv-EASPiwSw_Gz7TzjNc';
+  try{
+    if(!window.supabase||!window.supabase.createClient) throw new Error('Auth library unavailable');
+    const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    const {data,error}=await client.auth.getSession();
+    if(error||!data.session){window.location.replace('signin.html');return;}
+    document.documentElement.classList.remove('auth-lock');
+    document.documentElement.classList.add('auth-ready');
+  }catch(e){window.location.replace('signin.html');}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
