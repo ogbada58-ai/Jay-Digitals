@@ -5,50 +5,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Create Account — MARVY SIGNATURE</title>
 <meta name="description" content="Create your MARVY SIGNATURE customer account.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#c9a227;--cream:#f7f4ec;--muted:#777;--line:#e9e5da}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(135deg,#080808,#1c1c1c 60%,#342b18);font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}a{text-decoration:none;color:inherit}.page{width:min(460px,100%)}.brand{text-align:center;color:#fff;font:700 28px 'Playfair Display',serif;letter-spacing:.08em;margin-bottom:24px}.brand span{color:#e4c75a}.card{background:#fff;border-radius:12px;padding:36px;box-shadow:0 25px 70px #0008}.eyebrow{text-align:center;color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.14em}.title{text-align:center;font:600 34px 'Playfair Display',serif;margin:8px 0}.intro{text-align:center;color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:26px}.field{display:flex;flex-direction:column;gap:7px;margin-bottom:17px;font-weight:600;font-size:14px}.field input{width:100%;padding:14px;border:1px solid var(--line);border-radius:6px;outline:none;font:inherit}.field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #c9a22722}.btn{width:100%;padding:14px;background:#111;color:#fff;border:0;border-radius:6px;font-weight:700;cursor:pointer}.btn:disabled{opacity:.6;cursor:wait}.message{display:none;margin-top:16px;padding:12px;border-radius:6px;background:var(--cream);font-size:13px;text-align:center;line-height:1.5}.message.show{display:block}.message.error{background:#fff0f0;color:#9b2020}.message.success{background:#f3f8ef;color:#315d20}.signin{text-align:center;color:var(--muted);font-size:14px;margin-top:22px}.signin a{color:#9b7a13;font-weight:700}.back{display:block;text-align:center;color:#fff;margin-top:18px;font-size:14px}.security{text-align:center;color:#999;font-size:11px;margin-top:20px}@media(max-width:500px){.card{padding:28px 22px}.title{font-size:30px}}
+:root{--gold:#c9a227;--muted:#777;--line:#e9e5da}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(135deg,#080808,#1c1c1c 60%,#342b18);font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}.page{width:min(460px,100%)}.brand{text-align:center;color:#fff;font-size:28px;font-weight:700;letter-spacing:2px;margin-bottom:24px}.brand span{color:#e4c75a}.card{background:#fff;border-radius:12px;padding:36px;box-shadow:0 25px 70px #0008}.eyebrow{text-align:center;color:var(--gold);font-size:12px;font-weight:700;letter-spacing:2px}.title{text-align:center;font-size:30px;margin:8px 0}.intro{text-align:center;color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:26px}.field{display:flex;flex-direction:column;gap:7px;margin-bottom:17px;font-weight:600;font-size:14px}.field input{width:100%;padding:14px;border:1px solid var(--line);border-radius:6px;outline:none;font-size:16px}.field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #c9a22722}.btn{width:100%;padding:14px;background:#111;color:#fff;border:0;border-radius:6px;font-weight:700;cursor:pointer;font-size:15px}.btn:disabled{opacity:.6;cursor:wait}.message{display:none;margin-top:16px;padding:12px;border-radius:6px;font-size:13px;text-align:center;line-height:1.5}.message.show{display:block}.error{background:#fff0f0;color:#9b2020}.success{background:#f3f8ef;color:#315d20}.signin{text-align:center;color:var(--muted);font-size:14px;margin-top:22px}.signin a{color:#9b7a13;font-weight:700}.back{display:block;text-align:center;color:#fff;margin-top:18px;font-size:14px}.security{text-align:center;color:#999;font-size:11px;margin-top:20px}@media(max-width:500px){.card{padding:28px 22px}.title{font-size:28px}}
 </style>
 </head>
-<body><main class="page"><div class="brand">MARVY <span>SIGNATURE</span></div><section class="card"><div class="eyebrow">JOIN MARVY SIGNATURE</div><h1 class="title">Create your account</h1><p class="intro">Create a secure customer account to make shopping and checkout easier.</p><form id="signupForm"><label class="field">Email address<input id="email" type="email" autocomplete="email" placeholder="you@example.com" required></label><label class="field">Password<input id="password" type="password" autocomplete="new-password" placeholder="At least 6 characters" required minlength="6"></label><label class="field">Confirm password<input id="confirm" type="password" autocomplete="new-password" placeholder="Re-enter your password" required minlength="6"></label><button class="btn" id="submitBtn" type="submit">CREATE ACCOUNT</button><div class="message" id="message" role="alert"></div></form><div class="signin">Already have an account? <a href="signin.html">Sign in</a></div></section><a class="back" href="index.html">← Back to MARVY SIGNATURE</a><div class="security">Authentication is securely handled by Supabase.</div></main>
+<body><main class="page"><div class="brand">MARVY <span>SIGNATURE</span></div><section class="card"><div class="eyebrow">JOIN MARVY SIGNATURE</div><h1 class="title">Create your account</h1><p class="intro">Create a secure customer account to make shopping and checkout easier.</p><form id="signupForm" novalidate><label class="field">Email address<input id="email" type="email" autocomplete="email" placeholder="you@example.com" required></label><label class="field">Password<input id="password" type="password" autocomplete="new-password" placeholder="At least 6 characters" required minlength="6"></label><label class="field">Confirm password<input id="confirm" type="password" autocomplete="new-password" placeholder="Re-enter your password" required minlength="6"></label><button class="btn" id="submitBtn" type="submit">CREATE ACCOUNT</button><div class="message" id="message" role="alert"></div></form><div class="signin">Already have an account? <a href="signin.html">Sign in</a></div></section><a class="back" href="index.html">← Back to MARVY SIGNATURE</a><div class="security">Authentication is securely handled by Supabase.</div></main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
-  const form=document.getElementById('signupForm');
-  const message=document.getElementById('message');
-  const button=document.getElementById('submitBtn');
-  function show(text,type){message.textContent=text;message.className='message show '+(type||'');}
-  if(!window.supabase||typeof window.supabase.createClient!=='function'){
-    show('The account service could not load. Please refresh the page and try again.','error');
-    return;
-  }
-  const client=window.supabase.createClient('https://lspiygozawcwgjgsysld.supabase.co','sb_publishable_v-eHoJfEPdOjv-EASPiwSw_Gz7TzjNc');
-  form.addEventListener('submit',async function(e){
-    e.preventDefault();
-    show('','');
-    const email=document.getElementById('email').value.trim();
-    const password=document.getElementById('password').value;
-    const confirm=document.getElementById('confirm').value;
-    if(password.length<6){show('Password must be at least 6 characters.','error');return;}
-    if(password!==confirm){show('Passwords do not match.','error');return;}
-    button.disabled=true;button.textContent='CREATING ACCOUNT...';
-    try{
-      const redirectUrl=new URL('signin.html',window.location.href).href;
-      const {data,error}=await client.auth.signUp({email,password,options:{emailRedirectTo:redirectUrl}});
-      if(error){show(error.message,'error');return;}
-      if(data&&data.session){
-        window.location.replace('account.html');
-        return;
-      }
-      show('Account created successfully. Check your email for the confirmation link, then sign in.','success');
-      form.reset();
-    }catch(err){
-      show('Unable to create the account right now. Please check your internet connection and try again.','error');
-      console.error(err);
-    }finally{
-      button.disabled=false;button.textContent='CREATE ACCOUNT';
-    }
-  });
+'use strict';
+const form=document.getElementById('signupForm'),emailEl=document.getElementById('email'),passwordEl=document.getElementById('password'),confirmEl=document.getElementById('confirm'),message=document.getElementById('message'),button=document.getElementById('submitBtn');
+function show(text,type){message.textContent=text;message.className='message show '+(type||'error');}
+function friendlyError(error){const m=(error&&error.message)||'';const s=m.toLowerCase();if(s.includes('already registered')||s.includes('already been registered')||s.includes('user already exists'))return 'An account with this email already exists. Please sign in instead.';if(s.includes('password')&&s.includes('6'))return 'Your password must be at least 6 characters.';if(s.includes('invalid email'))return 'Please enter a valid email address.';if(s.includes('rate limit'))return 'Too many attempts. Please wait a little and try again.';if(s.includes('fetch')||s.includes('network'))return 'Network connection problem. Check your internet and try again.';return m||'We could not create your account. Please try again.';}
+if(!window.supabase||typeof window.supabase.createClient!=='function'){show('The account service could not load. Please refresh and try again.','error');return;}
+const client=window.supabase.createClient('https://lspiygozawcwgjgsysld.supabase.co','sb_publishable_v-eHoJfEPdOjv-EASPiwSw_Gz7TzjNc');
+form.addEventListener('submit',async function(e){e.preventDefault();message.className='message';const email=emailEl.value.trim(),password=passwordEl.value,confirm=confirmEl.value;if(!email){show('Please enter your email address.');emailEl.focus();return}if(!emailEl.checkValidity()){show('Please enter a valid email address.');emailEl.focus();return}if(password.length<6){show('Your password must be at least 6 characters.');passwordEl.focus();return}if(password!==confirm){show('Passwords do not match.');confirmEl.focus();return}button.disabled=true;button.textContent='CREATING ACCOUNT...';try{const redirectUrl=new URL('signin.html',window.location.href).href;const {data,error}=await client.auth.signUp({email,password,options:{emailRedirectTo:redirectUrl}});if(error){show(friendlyError(error));return}if(data&&data.session){show('Account created! Taking you to your account...','success');setTimeout(()=>window.location.replace('account.html'),500);return}show('Account created! Please check your email and click the confirmation link before signing in.','success');form.reset();}catch(error){console.error('Signup error:',error);show(friendlyError(error));}finally{button.disabled=false;button.textContent='CREATE ACCOUNT';}});
 })();
 </script></body></html>
