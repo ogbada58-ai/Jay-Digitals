@@ -12,17 +12,17 @@
 </head>
 <body>
   <header class="nav-wrap">
-    <nav class="nav container">
-      <a class="logo" href="#home">JAY<span>.</span></a>
-      <button class="menu" aria-label="Open menu">☰</button>
-      <div class="nav-links">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="logo" href="#home" aria-label="JAY DIGITALS home">JAY<span>.</span></a>
+      <button class="menu" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span></button>
+      <div class="nav-links" id="site-menu">
         <a href="#home">Home</a><a href="#services">Services</a><a href="#work">Work</a><a href="#about">About</a><a class="nav-cta" href="#contact">Let's talk</a>
       </div>
     </nav>
   </header>
 
   <main>
-    <section id="home" class="hero container">
+    <section id="home" class="hero container reveal">
       <div class="hero-copy">
         <p class="eyebrow">CREATIVE DESIGN • DIGITAL SOLUTIONS</p>
         <h1>Design that makes your <em>brand stand out.</em></h1>
@@ -38,7 +38,7 @@
       </div>
     </section>
 
-    <section id="services" class="section container">
+    <section id="services" class="section container reveal">
       <div class="section-head"><p class="eyebrow">WHAT I DO</p><h2>Services built around your brand.</h2></div>
       <div class="service-grid">
         <article class="service"><div class="number">01</div><h3>Graphic Design</h3><p>Eye-catching designs for social media, flyers, posters, banners and promotional campaigns.</p></article>
@@ -48,21 +48,22 @@
     </section>
 
     <section id="work" class="section work-section">
-      <div class="container"><div class="section-head row"><div><p class="eyebrow">SELECTED WORK</p><h2>A few things I've created.</h2></div><span class="work-note">Portfolio • 2026</span></div>
+      <div class="container reveal"><div class="section-head row"><div><p class="eyebrow">SELECTED WORK</p><h2>A portfolio with personality.</h2></div><span class="work-note">Portfolio • 2026</span></div>
         <div class="work-grid">
-          <article class="project project-one"><div class="project-top"><span>01</span><span>Brand Identity</span></div><div class="project-title">Bold<br>Identity</div><div class="project-shape"></div></article>
-          <article class="project project-two"><div class="project-top"><span>02</span><span>Social Design</span></div><div class="project-title">Social<br>Stories</div><div class="project-lines"></div></article>
-          <article class="project project-three"><div class="project-top"><span>03</span><span>Digital</span></div><div class="project-title">Digital<br>Presence</div><div class="project-grid"></div></article>
+          <article class="project project-one project-feature"><div class="project-top"><span>01</span><span>Brand Identity</span></div><div class="project-title">Bold<br>Identity</div><div class="project-shape"></div><div class="project-hover">VIEW PROJECT ↗</div></article>
+          <article class="project project-two"><div class="project-top"><span>02</span><span>Social Design</span></div><div class="project-title">Social<br>Stories</div><div class="project-lines"></div><div class="project-hover">VIEW PROJECT ↗</div></article>
+          <article class="project project-three"><div class="project-top"><span>03</span><span>Digital</span></div><div class="project-title">Digital<br>Presence</div><div class="project-grid"></div><div class="project-hover">VIEW PROJECT ↗</div></article>
         </div>
+        <div class="portfolio-strip"><span>IDENTITY</span><span>SOCIAL</span><span>WEB</span><span>CAMPAIGN</span><span>CREATIVE</span></div>
       </div>
     </section>
 
-    <section id="about" class="section container about">
+    <section id="about" class="section container about reveal">
       <div><p class="eyebrow">ABOUT JAY DIGITALS</p><h2>Simple ideas.<br><em>Strong visuals.</em></h2></div>
       <div><p>JAY DIGITALS is a creative studio focused on helping people and businesses communicate with confidence through design.</p><p>Every project starts with understanding the message, then turning it into visuals that are clear, modern and memorable.</p></div>
     </section>
 
-    <section id="contact" class="contact container">
+    <section id="contact" class="contact container reveal">
       <p class="eyebrow">HAVE A PROJECT?</p><h2>Let's create something<br><em>people remember.</em></h2>
       <div class="contact-row"><a class="btn primary" href="mailto:ogbada58@gmail.com">Email me ↗</a><a class="contact-detail" href="tel:+2348141167292">+234 814 116 7292</a><span class="contact-detail">Ikeja, Lagos, Nigeria</span></div>
     </section>
