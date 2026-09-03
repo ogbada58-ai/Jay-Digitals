@@ -32,19 +32,3 @@ if ('IntersectionObserver' in window) {
 } else {
   revealItems.forEach((item) => item.classList.add('visible'));
 }
-
-const filters = document.querySelectorAll('.filter');
-const projects = document.querySelectorAll('.portfolio-card');
-projects.forEach((project, index) => {
-  project.dataset.category = ['brand', 'social', 'digital'][index] || 'brand';
-});
-
-filters.forEach((filter) => filter.addEventListener('click', () => {
-  filters.forEach((button) => button.classList.remove('active'));
-  filter.classList.add('active');
-  const category = filter.dataset.filter;
-  projects.forEach((project) => {
-    const show = category === 'all' || project.dataset.category === category;
-    project.classList.toggle('hidden', !show);
-  });
-}));
