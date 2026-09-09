@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JAY Virtual Numbers</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div><span class="eyebrow">JAY DIGITALS</span><h1>Virtual Numbers</h1></div>
+      <button id="logoutBtn" class="ghost">Sign out</button>
+    </header>
+
+    <section id="authCard" class="card auth-card">
+      <h2>Welcome back</h2>
+      <p>Sign in to manage your provisioned numbers and SMS inbox.</p>
+      <input id="email" type="email" placeholder="Email address" autocomplete="email" />
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
+      <div class="row"><button id="signInBtn">Sign in</button><button id="signUpBtn" class="secondary">Create account</button></div>
+      <p id="authMsg" class="message"></p>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="stats">
+        <div class="card stat"><span>Numbers</span><strong id="numberCount">0</strong></div>
+        <div class="card stat"><span>Unread SMS</span><strong id="unreadCount">0</strong></div>
+        <div class="card stat"><span>Status</span><strong class="online">Ready</strong></div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <div class="section-head"><h2>My numbers</h2><button id="refreshBtn" class="secondary">Refresh</button></div>
+          <div id="numbersList" class="list empty">No numbers assigned yet.</div>
+        </section>
+        <section class="card">
+          <div class="section-head"><h2>SMS inbox</h2><span class="badge">Live</span></div>
+          <div id="messagesList" class="list empty">Select a number to view messages.</div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
