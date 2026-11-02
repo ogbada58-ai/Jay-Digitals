@@ -10,6 +10,7 @@ const app = express();
 const PORT = Number(process.env.PORT || 3000);
 const DIR = path.join(__dirname, "data");
 const STORE = path.join(DIR, "messages.json");
+const OPTOUT_STORE = path.join(DIR, "opt-outs.json");
 fs.mkdirSync(DIR, {recursive:true});
 app.set("trust proxy", 1);
 app.use(helmet({contentSecurityPolicy:false}));
@@ -18,6 +19,8 @@ app.use(express.json({limit:"20kb"}));
 
 function readMessages(){try{return JSON.parse(fs.readFileSync(STORE,"utf8"));}catch{return [];}}
 function addMessage(item){const a=readMessages();a.unshift({id:Date.now()+"-"+Math.random().toString(36).slice(2,8),createdAt:new Date().toISOString(),...item});fs.writeFileSync(STORE,JSON.stringify(a.slice(0,1000),null,2));return a[0];}
+function readOptOuts(){try{return JSON.parse(fs.readFileSync(OPTOUT_STORE,"utf8"));}catch{return [];}}
+function writeOptOuts(list){fs.writeFileSync(OPTOUT_STORE,JSON.stringify([...new Set(list)],null,2));}
 function admin(req,res,next){
  const expected=process.env.ADMIN_PASSWORD||"";
  if(!expected||expected==="replace-with-a-long-unique-password")return res.status(503).json({error:"Set a secure ADMIN_PASSWORD in your hosting environment."});
@@ -38,6 +41,7 @@ app.post("/api/send",async(req,res)=>{
  if(!/^\+[1-9]\d{7,14}$/.test(to))return res.status(400).json({error:"Use an international number, e.g. +2348012345678."});
  if(!body||body.length>1000)return res.status(400).json({error:"Message must contain 1–1000 characters."});
  if(req.body.consent!==true)return res.status(400).json({error:"Confirm that the recipient agreed to receive this message."});
+ if(readOptOuts().includes(to))return res.status(403).json({error:"This number has opted out. Do not send further messages unless the recipient opts back in."});
  if(!ready())return res.status(503).json({error:"Twilio is not configured. Add credentials and an SMS sender in your host settings."});
  try{
   const client=twilio(process.env.TWILIO_ACCOUNT_SID,process.env.TWILIO_AUTH_TOKEN);
@@ -60,8 +64,9 @@ app.post("/webhooks/twilio/sms",(req,res)=>{
  const stop=["STOP","STOPALL","UNSUBSCRIBE","CANCEL","END","QUIT"];
  const start=["START","UNSTOP"];
  let reply="";
- if(stop.includes(key))reply="You have been opted out. No further messages will be sent.";
- if(start.includes(key))reply="You are opted back in. Reply STOP at any time to opt out.";
+ const blocked=readOptOuts();
+ if(stop.includes(key)){writeOptOuts(blocked.concat([from]));reply="You have been opted out. No further messages will be sent."}
+ if(start.includes(key)){writeOptOuts(blocked.filter(n=>n!==from));reply="You are opted back in. Reply STOP at any time to opt out."}
  addMessage({direction:"inbound",from,to:String(req.body.To||""),body,status:"received",sid:String(req.body.MessageSid||"")});
  const twiml=new twilio.twiml.MessagingResponse();if(reply)twiml.message(reply);
  res.type("text/xml").send(twiml.toString());
